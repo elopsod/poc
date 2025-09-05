@@ -1,0 +1,50 @@
+---
+services:
+  opensearch-server:
+    image: opensearchproject/opensearch:3.2.0
+    container_name: opensearch-server
+    hostname:       opensearch-server
+
+    environment:
+      cluster.name: opensearch-server
+      node.name:    opensearch-server
+      discovery.type: single-node
+      logger.level: INFO
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: sdfDSEqw234weQR
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - opensearch-server:/usr/share/opensearch/data
+      - ./configs/opensearch.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml
+    ports:    ['9200:9200', '9600:9600']
+    networks: ['opensearch-net']
+    restart: unless-stopped
+
+  # DASHBOARDS
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:3.2.0
+    container_name: opensearch-dashboards
+    hostname:       opensearch-dashboards
+    environment:
+      OPENSEARCH_HOSTS: '["https://opensearch-server:9200"]'
+    volumes:
+      - ./configs/opensearch-dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
+    ports:    ['5601:5601']
+    networks: ['opensearch-net']
+    restart: unless-stopped
+
+
+volumes:
+  opensearch-server:
+    name: opensearch-server
+
+networks:
+  opensearch-net:
+    external: true
+    name: my_network #docker network create my_network
