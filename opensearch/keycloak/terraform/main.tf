@@ -72,13 +72,13 @@ resource "keycloak_saml_user_property_protocol_mapper" "email" {
 
 resource "keycloak_user" "user" {
   realm_id = keycloak_realm.realm.id
-  username = "admin"
+  username = "user"
   initial_password {
-    value     = "admin"
+    value     = "user"
     temporary = true
   }
   enabled  = true
-  email      = "admin@domain.com"
+  email      = "user@domain.com"
   first_name = "name"
   last_name  = "lname"
 }

@@ -14,8 +14,8 @@ services:
       KC_HOSTNAME_STRICT_HTTPS: "false"
       PROXY_ADDRESS_FORWARDING: "true"
 
-      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/certs/crt/server.crt
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/certs/key/server.key
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/certs/server.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/certs/server.key
 
       KC_LOG_LEVEL: info
       KC_METRICS_ENABLED: true
@@ -34,7 +34,7 @@ services:
       - 8080:8080
       - 8443:8443
     volumes:
-      - ../ssl:/opt/keycloak/certs
+      - ./certs:/opt/keycloak/certs
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
       interval: 5s
@@ -61,7 +61,6 @@ services:
       retries: 5
     networks:
       - "infra"
-
 
 networks:
   infra:
