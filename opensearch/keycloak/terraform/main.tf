@@ -16,10 +16,9 @@ resource "keycloak_realm_events" "events" {
   events_listeners             = ["jboss-logging"]
 }
 
-# SAML client — matches your OpenSearch SP entity_id: "opennsearch"
 resource "keycloak_saml_client" "app" {
   realm_id                  = keycloak_realm.realm.id
-  client_id                 = "http://opensearch-dashboards:5601"
+  client_id                 = "opensearch"
   name                      = "opensearch-dashboards"
   client_signature_required = false
   sign_assertions           = true

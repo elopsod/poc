@@ -31,7 +31,7 @@ config:
               metadata_url: http://keycloak:8080/realms/boundary/protocol/saml/descriptor
               entity_id: http://keycloak:8080/realms/boundary
             sp:
-              entity_id: http://opensearch-dashboards:5601
+              entity_id: opensearch
             kibana_url: http://opensearch-dashboards:5601
             roles_key: groups
             exchange_key: bdf50723fdc410f9bb5e23920af3b9b4b81868d88e7da4e194a5105c2da3cf3a
