@@ -9,28 +9,34 @@ resource "keycloak_realm" "realm" {
 }
 
 resource "keycloak_realm_events" "events" {
-  realm_id = keycloak_realm.realm.id
-  admin_events_enabled          = true
-  admin_events_details_enabled  = true
-  events_enabled                = true
-  events_listeners              = ["jboss-logging"]
+  realm_id                     = keycloak_realm.realm.id
+  admin_events_enabled         = true
+  admin_events_details_enabled = true
+  events_enabled               = true
+  events_listeners             = ["jboss-logging"]
 }
 
 # SAML client — matches your OpenSearch SP entity_id: "opennsearch"
 resource "keycloak_saml_client" "app" {
   realm_id                  = keycloak_realm.realm.id
-  client_id                 = "opennsearch"
-  name                      = "opennsearch"
+  client_id                 = "http://opensearch-dashboards:5601"
+  name                      = "opensearch-dashboards"
   client_signature_required = false
-  sign_assertions           = false
+  sign_assertions           = true
   sign_documents            = true
   name_id_format            = "email"
-  include_authn_statement   = false
+  include_authn_statement   = true
   force_post_binding        = true
   force_name_id_format      = true
+  front_channel_logout      = true
   signature_algorithm       = "RSA_SHA256"
   signature_key_name        = "NONE"
-
+  extra_config = {
+    "display.on.consent.screen"         = false
+    "saml.artifact.binding"             = false
+    "saml.onetimeuse.condition"         = false
+    "saml.server.signature.keyinfo.ext" = false
+  }
   valid_redirect_uris = [
     "http://localhost:5601/_plugins/_security/saml/acs/",
     "http://localhost:5601/_opendistro/_security/saml/acs/",
@@ -39,7 +45,9 @@ resource "keycloak_saml_client" "app" {
     "http://127.0.0.1:5601/_opendistro/_security/saml/acs",
     "http://localhost:5601/_opendistro/_security/saml/acs",
     "http://127.0.0.1:5601/*",
-    "http://localhost:5601/*"
+    "http://localhost:5601/*",
+    "http://opensearch-dashboards:5601/*",
+    "https://opensearch-dashboards:5601/*",
   ]
 }
 
@@ -77,7 +85,7 @@ resource "keycloak_user" "user" {
     value     = "user"
     temporary = true
   }
-  enabled  = true
+  enabled    = true
   email      = "user@domain.com"
   first_name = "name"
   last_name  = "lname"
@@ -93,7 +101,7 @@ resource "keycloak_group_memberships" "group_members" {
   realm_id = keycloak_realm.realm.id
   group_id = keycloak_group.group.id
 
-  members  = [
+  members = [
     keycloak_user.user.username
   ]
 }

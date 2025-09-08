@@ -32,9 +32,9 @@ config:
             idp:
               entity_id: "http://keycloak:8080/realms/boundary"
               metadata_url: "http://keycloak:8080/realms/boundary/protocol/saml/descriptor"
-            sp:
-              entity_id: "opennsearch"       # MUST match TF client_id
-            kibana_url: "http://localhost:5601"  # or https://localhost:5601 if you enable TLS in Dashboards
+            # sp:
+            #   entity_id: "http://opensearch-dashboards:5601"     # MUST match TF client_id
+            # kibana_url: "http://opensearch-dashboards:5601"  # or https://localhost:5601 if you enable TLS in Dashboards
             roles_key: "groups"
             exchange_key: "9b4a1c4a3d6f0f1a2b3c4d5e6f7a8b9c9b4a1c4a3d6f0f1a2b3c4d5e6f7a8b9"
         authentication_backend:
