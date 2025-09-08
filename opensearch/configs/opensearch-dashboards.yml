@@ -1,13 +1,12 @@
 server.name: kibana
 server.host: "0.0.0.0"
 server.customResponseHeaders : { "Access-Control-Allow-Credentials" : "true" }
-
-
 server.ssl.enabled: false
 
-opensearch.ssl.verificationMode: none
 opensearch.username: kibanaserver
-opensearch.password: kibanaserver
+opensearch.password: a12345678
+
+opensearch.ssl.verificationMode: none
 opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
 
 opensearch_security.multitenancy.enabled: true
