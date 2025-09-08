@@ -15,14 +15,14 @@ services:
       plugins.security.authcz.admin_dn: 'CN=admin'
 
       plugins.security.ssl.http.enabled: 'true'
-      plugins.security.ssl.http.pemkey_filepath:        certificates/key/server.key
-      plugins.security.ssl.http.pemcert_filepath:       certificates/crt/server.crt
-      plugins.security.ssl.http.pemtrustedcas_filepath: certificates/crt/server.crt
+      plugins.security.ssl.http.pemkey_filepath:        certificates/server.key
+      plugins.security.ssl.http.pemcert_filepath:       certificates/server.crt
+      plugins.security.ssl.http.pemtrustedcas_filepath: certificates/server.crt
 
       plugins.security.ssl.transport.enabled: 'true'
-      plugins.security.ssl.transport.pemkey_filepath:        certificates/key/server.key
-      plugins.security.ssl.transport.pemcert_filepath:       certificates/crt/server.crt
-      plugins.security.ssl.transport.pemtrustedcas_filepath: certificates/crt/server.crt
+      plugins.security.ssl.transport.pemkey_filepath:        certificates/server.key
+      plugins.security.ssl.transport.pemcert_filepath:       certificates/server.crt
+      plugins.security.ssl.transport.pemtrustedcas_filepath: certificates/server.crt
       plugins.security.ssl.transport.enforce_hostname_verification: 'false'
       plugins.security.ssl.http.clientauth_mode: OPTIONAL
 
