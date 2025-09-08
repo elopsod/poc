@@ -38,8 +38,8 @@ resource "keycloak_saml_client" "app" {
     "saml.server.signature.keyinfo.ext" = false
   }
   valid_redirect_uris = [
-    "http://opensearch-dashboards:5601/_plugins/_security/saml/acs/",
-    "http://opensearch-dashboards:5601/_opendistro/_security/saml/acs",
+    # "http://opensearch-dashboards:5601/_plugins/_security/saml/acs/",
+    # "http://opensearch-dashboards:5601/_opendistro/_security/saml/acs",
     "http://opensearch-dashboards:5601/*",
     "https://opensearch-dashboards:5601/*",
     "http://127.0.0.1:8000/api/saml/callback",
