@@ -1,0 +1,36 @@
+apiVersion: "argoproj.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: "1app"
+spec:
+  destination:
+    namespace: "argocd"
+    server: "https://kubernetes.default.svc"
+  sources:
+    - repoURL: "oci://registry-1.docker.io/elopsod/helm"
+      targetRevision: "1.0.0-echo-chart"
+      path: "."
+      helm:
+        valuesObject:
+          configmap:
+            data:
+              valut-plugin: "<path:bb/nn/argocd#RMQ_HOST>"
+              helm-secret: "ref+awssecrets://bb/nn/argocd?region=eu-central-1#/RMQ_HOST"
+  project: "default"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+      - "CreateNamespace=true"
+
+
+    # - repoURL: "https://github.com/elopsod/poc.git"
+    #   path: "argo/echo/chart"
+    #   targetRevision: "main"
+    #   helm:
+    #     valuesObject:
+    #       configmap:
+    #         data:
+    #           plugin: "<path:shared/grafana/argocd#GRAFANA_PASS>"
+    #           secret: "ref+awssecrets://shared/grafana/argocd?region=eu-central-1#/GRAFANA_PASS"
